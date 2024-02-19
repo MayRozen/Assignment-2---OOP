@@ -1,5 +1,3 @@
-import self
-
 
 class SocialNetwork:
     _active_network = None  # Singleton
@@ -7,11 +5,13 @@ class SocialNetwork:
     password = None
     check_userName = []
 
-    def __new__(cls):
+    def __new__(cls, new_nameNetwork):
         if cls._active_network is None:  # If an instance does not exist -> create a new one
             cls._active_network = super().__new__(cls)  # super -> from Object class
+            cls._active_network = new_nameNetwork
             print(_active_network)
         return cls._active_network
+
 
     def sign_up(self, new_userName, new_password):
         if new_userName not in self.check_userName:
@@ -31,12 +31,12 @@ class SocialNetwork:
         if new_userName in self.check_userName:
             if new_password in self.check_userName:
                 Users.isConnected = True
-                print("The user in")
+                print("The user is in")
 
     def log_out(self, new_userName):
         if new_userName in self.check_userName:
             Users.isConnected = False
-            print("The user out")
+            print("The user is out")
 
 
 
