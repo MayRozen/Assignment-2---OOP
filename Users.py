@@ -1,5 +1,4 @@
 from Posts import Posts
-from SocialNetwork import SocialNetwork
 
 
 class Users:
@@ -28,14 +27,22 @@ class Users:
             print("Unfollow succeeded")
 
     def publish_post(self, type_post, *content):  # using factory
-        post = Posts.create_post(type_post, Users(self.name, self.password), *content)
-        return post
+        if self.isConnected:
+            post = Posts.create_post(type_post, Users(self.name, self.password), *content)
+            return post
 
-    def notify(self):
-        pass
+    def notify(self, new_post):
+        print("Received a notification for a new post")
+        for follower in self.followers:
+            follower.notification(new_post)
 
-    def print_info(self):
-        pass
+    @staticmethod
+    def print_info(self, user):
+        print(f"Followers: {user.followers}")
+        print(f"Posts: {user.posts}")
+        print(f"Notification: {user.notification}")
+
 
     def print_notifications(self):
-        pass
+        for notif in reversed(self.notification):
+            print(notif)
