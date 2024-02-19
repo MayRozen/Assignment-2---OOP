@@ -19,11 +19,13 @@ class Users:
         if self.isConnected:
             self.followers.append(user)
             user.followers.append(Users(self.name, self.password))
+            print("Follow succeeded")
 
     def unfollow(self, user):
         if self.isConnected:
             self.followers.remove(user)
             user.followers.remove(Users(self.name, self.password))
+            print("Unfollow succeeded")
 
     def publish_post(self, type_post, *content):  # using factory
         post = Posts.create_post(type_post, Users(self.name, self.password), *content)
