@@ -39,4 +39,3 @@ class SocialNetwork:
             print("The user is out")
 
 
-
