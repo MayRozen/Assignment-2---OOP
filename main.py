@@ -3,18 +3,18 @@ from SocialNetwork import SocialNetwork
 
 def main():
     # Creating the network
-    network = SocialNetwork("Twitter") # constractor in SocialNetwork
+    network = SocialNetwork("Twitter")  # constractor in SocialNetwork
     print()
 
     # Creating users
-    u1 = network.sign_up("Alice", "pass1") # function in SocialNetwork
+    u1 = network.sign_up("Alice", "pass1")  # function in SocialNetwork
     u2 = network.sign_up("Bob", "pass2")
     u3 = network.sign_up("Charlie", "pass3")
     u4 = network.sign_up("David", "pass4")
     u5 = network.sign_up("Eve", "pass5")
 
     # Creating followers
-    u1.follow(u2) # function in Users
+    u1.follow(u2)  # function in Users
     u1.follow(u5)
     u2.follow(u5)
     u2.follow(u1)
