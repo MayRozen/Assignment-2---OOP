@@ -1,4 +1,4 @@
-from Posts import Posts
+import Posts
 
 
 class SalePost(Posts):
@@ -8,6 +8,7 @@ class SalePost(Posts):
     available = False
 
     def __init__(self, description, price, location, owner, like_count, comments):
+        super().__init__()
         self.description = description
         self.price = price
         self.location = location
