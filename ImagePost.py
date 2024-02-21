@@ -1,12 +1,11 @@
-from Posts import Posts
-from PIL import Image
+import Posts
 
 
 class ImagePost(Posts):
-    super()
     image = ""
 
     def __init__(self, image, owner, like_count, comments):
+        super().__init__()
         self.image = image
         super().__init__(owner, like_count, comments)
 
@@ -16,4 +15,4 @@ class ImagePost(Posts):
 
     def print_info(self):
         image_string = "imagePost"
-        print(f"{self.owner.name} {Posts.create_post(self,image_string, self.owner,self.image).display()}")
+        print(f"{self.owner.name} {Posts.create_post(image_string, self.owner, self.image).display()}")
