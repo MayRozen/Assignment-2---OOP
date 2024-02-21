@@ -29,9 +29,9 @@ def main():
     # Creating text post
     p1 = u1.publish_post("Text", "In 1492, Christopher Columbus set sail,\n"
                                  "hoping to find a westward route to Asia, but instead,\n"
-                                 "he discovered the Americas, changing the course of history forever.")  # p1 is "Posts"s type
+                                 "he discovered the Americas, changing the course of history forever.") # p1 is "Posts"s type
     # Creating image post
-    p2 = u4.publish_post("Image", 'image1.jpg') # publish_post is a function in Users
+    p2 = u4.publish_post("Image", 'image1.jpg')  # publish_post is a function in Users
 
     # Creating sale post
     p3 = u3.publish_post("Sale", "Toyota prius 2012", 42000, "Haifa")
@@ -60,7 +60,7 @@ def main():
     print()
 
     # Defining the product as sold
-    p3.sold("pass3")  # define the product is sold
+    p3.sold("pass3") # define the product is sold
     print()
 
     print(p3)
