@@ -1,13 +1,11 @@
-import Posts
+from Posts import Posts
 
 
 class TextPost(Posts):
-    text = ""
 
-    def __init__(self, text, owner, like_count, comments):
-        super().__init__()
+    def __init__(self, text, user):
+        super().__init__(user)
         self.text = text
-        super().__init__(owner, like_count, comments)
 
     def print_info(self):
-        print(f"{self.text} {self.owner.name}")
+        print(f"{self.text} {self._user.name}")
