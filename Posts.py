@@ -1,7 +1,11 @@
 from enum import Enum
 from abc import abstractmethod
 
-import Users
+from ImagePost import ImagePost
+from SalePost import SalePost
+from TextPost import TextPost
+
+from Observer import Sender
 
 class PostType(Enum):
     TEXTPOST = "textPost"
@@ -10,47 +14,52 @@ class PostType(Enum):
 
 
 class Posts:
-    like_count = 0
+    _like = []
     comments = []
-    owner = None
+
+    def __init__(self, user):
+        self._user = user
+        self.sender = Sender()
 
     @staticmethod
-    def create_post(self, post_type, owner, *content):
-        self.owner = owner
-        if post_type == post_type.TEXTPOST:
-            text = content[0]
-            return TextPost(text)
-        elif post_type == post_type.IMAGEPOST:
-            image = content[0]
-            return ImagePost(image)
-        elif post_type == post_type.SALEPOST:
-            description = content[0]
-            price = content[1]
-            location = content[2]
-            return SalePost(description, price, location)
-        else:
-            raise ValueError("Invalid post type")
+    def publish_post(self, post_type, *content):
+        if self.isConnected:
+            if post_type == post_type.TEXTPOST:
+                new_post = TextPost(self, *content)
+                self._posts.append(new_post)
+                self.sender.notify(f"{self._username} has a new post")
+                return new_post
+            elif post_type == post_type.IMAGEPOST:
+                new_post = ImagePost(self, *content)
+                self._posts.append(new_post)
+                self.sender.notify(f"{self._username} has a new post")
+                return new_post
+            elif post_type == post_type.SALEPOST:
+                description = content[0]
+                price = content[1]
+                location = content[2]
+                new_post = SalePost(description, price, location, self)
+                self._posts.append(new_post)
+                self.sender.notify(f"{self._username} has a new post")
+                return new_post
+            else:
+                raise ValueError("Invalid post type")
 
-    def like(self, user):  # continue
-        if self.owner.isConnected:
-            self.like_count += 1
-            if user != self.owner:
-                for follower in self.owner.followers:
-                    self.owner.followers.updateLike(self.like_count)
+
+
+    def like(self, user):
+        if self._user.isConnected:
+            if user != self._user and user not in self._like:
+                self._user.notifications.append(f"{user.username()} liked your post")
+                print(f"notification to {self._user.username()}: {user.username()} liked your post")
 
     def comment(self, user, content):
-        if self.owner.isConnected:
-            self.comments.append(user, content)
-            if user != self.owner:
-                for follower in self.owner.followers:
-                    self.owner.followers.updateComment(content)
+        if self._user.isConnected:
+            if user != self._user:
+                self._user.notifications.append(f"{user.username()} commented on your post")
+                print(f"notification to {self._user.username()}: {user.username()} commented on your post: {content}")
 
     @abstractmethod
     def print_info(self, user):
         pass
-
-
-    def notify(self, new_post):
-        for follower in self.owner.followers:
-            Users.followers.updatePost(new_post)
 
