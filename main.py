@@ -57,7 +57,7 @@ def main():
     p3.like(u2)
     p3.comment(u2, "Can you give me your phone number?")
     p3.comment(u4, "+97255576433")
-    print()
+    # print()
 
     # Defining the product as sold
     p3.sold("pass3") # define the product is sold
