@@ -1,52 +1,50 @@
-
+from Observer import Sender
 
 class Users:
-    followers = []
-    posts = []
-    notification = []
-    isConnected = False
-    name = None
-    password = None
+    def __init__(self, username, password):
+        self._username = username
+        self._password = password
+        self._followers = []
+        self._posts = []
+        self.notification = []
+        self.isConnected = False
+        self.sender = Sender()
 
-    def __init__(self, name, password):
-        self.name = name
-        self.password = password
-        self.isConnected = True
+    def username(self):  # get username
+        return self._username
+
+    def password(self):  # get password
+        return self._password
 
     def follow(self, user):
         if self.isConnected:
-            user.followers.append(self)
-            print("Follow succeeded")
+            if self not in user._followers:
+                user._followers.append(self)
+                user.sender.register(self)  # Observer
+                print(f"{self._username} started following {user._username}")
 
     def unfollow(self, user):
         if self.isConnected:
-            user.followers.remove(self)
-            print("Unfollow succeeded")
+            if self not in user._followers:
+                user._followers.remove(self)
+                user.sender.unregister(self)  # Observer
+                print(f"{self._username} unfollowed {user._username}")
 
     def publish_post(self, type_post, *content):  # using factory
         if self.isConnected:
-            post = Posts.create_post(type_post, Users(self.name, self.password), *content)
+            post = Posts.publish_post(type_post, Users(self._username, self._password), *content)
             return post
 
-    @staticmethod
-    def print_info(self, user):
-        print(f"Followers: {user.followers}")
-        print(f"Posts: {user.posts}")
-        print(f"Notification: {user.notification}")
+    def print_info(self):
+        print(f"User name: {self._username}")
+        print(f"Number of followers: {len(self._followers)}")
+        print(f"Number of posts: {len(self._posts)}")
 
     def print_notifications(self):
         for notif in reversed(self.notification):
             print(notif)
 
-    def updateLike(self, like_count):
-        print(f"{self.name} liked your post: {like_count}")
-        self.notification.append(like_count)
-
-    def updateComment(self, content):
-        print(f"{self.name} commented on th post: {content}")
+    def update(self, content):
         self.notification.append(content)
 
-    def updatePost(self, new_post):
-        print(f"{self.name} received newsletter: {new_post}")
-        self.notification.append(new_post)
 
