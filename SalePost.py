@@ -1,23 +1,18 @@
-import Posts
+from Posts import Posts
 
 
 class SalePost(Posts):
-    description = ""
-    price = None
-    location = ""
-    available = False
 
-    def __init__(self, description, price, location, owner, like_count, comments):
-        super().__init__()
+    def __init__(self, description, price, location, user):
+        super().__init__(user)
         self.description = description
         self.price = price
         self.location = location
         self.available = True
-        super().__init__(owner, like_count, comments)
 
     @staticmethod
     def discount(self, percentage, password):
-        if self.owner.password == password:
+        if self.user.password == password:
             if 0 <= percentage <= 100:
                 discount_amount = self.price * (percentage / 100)
                 discounted_price = self.price - discount_amount
@@ -27,8 +22,8 @@ class SalePost(Posts):
                 print("Invalid discount percentage. It should be between 0 and 100.")
 
     def sold(self, password):
-        if self.owner.password == password:
+        if self._user.password == password:
             self.available = False
 
     def print_info(self):
-        print(f"it's {self.available} that the product of {self.owner.name} is sold")
+        print(f"it's {self.available} that the product of {self._user.name} is sold")
