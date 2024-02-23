@@ -9,3 +9,4 @@ class TextPost(Posts):
 
     def print_info(self):
         print(f"{self.text} {self._user.name}")
+        
