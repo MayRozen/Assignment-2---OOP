@@ -3,7 +3,7 @@ from Posts import Posts
 
 class SalePost(Posts):
 
-    def __init__(self, description, price, location, user):
+    def __init__(self, user, description, price, location):
         super().__init__(user)
         self.description = description
         self.price = price
@@ -26,4 +26,7 @@ class SalePost(Posts):
             self.available = False
 
     def print_info(self):
-        print(f"it's {self.available} that the product of {self._user.name} is sold")
+        if self.available:
+            print(f"it's {self.available} that the product of {self._user.name} is not sold")
+        else:
+            print(f"it's {self.available} that the product of {self._user.name} is sold")
