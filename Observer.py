@@ -15,3 +15,4 @@ class Sender(ABC):
     def notify(self, content):
         for member in self._members:
             member.update(content)
+        
