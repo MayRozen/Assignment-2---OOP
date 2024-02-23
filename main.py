@@ -60,7 +60,7 @@ def main():
     # print()
 
     # Defining the product as sold
-    p3.sold("pass3") # define the product is sold
+    p3.sold("pass3")  # define the product is sold
     print()
 
     print(p3)
