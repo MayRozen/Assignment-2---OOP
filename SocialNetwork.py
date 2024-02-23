@@ -38,3 +38,4 @@ class SocialNetwork:
             user = self.check_userName[new_username]
             user.isConnected = False
             print("The user is out")
+
