@@ -1,4 +1,5 @@
 from Observer import Sender
+from FactoryPosts import FactoryPosts, PostType
 
 class Users:
     def __init__(self, username, password):
@@ -7,7 +8,7 @@ class Users:
         self._followers = []
         self._posts = []
         self.notification = []
-        self.isConnected = False
+        self.isConnected = True
         self.sender = Sender()
 
     def username(self):  # get username
@@ -32,8 +33,18 @@ class Users:
 
     def publish_post(self, type_post, *content):  # using factory
         if self.isConnected:
-            post = Posts.publish_post(type_post, Users(self._username, self._password), *content)
-            return post
+            if(type_post == "Text"):
+                new_post = FactoryPosts.created_post(PostType.TEXTPOST, self, *content)
+                self._posts.append(new_post)
+            if(type_post == "Image"):
+                new_post = FactoryPosts.created_post(PostType.IMAGEPOST, self, *content)
+                self._posts.append(new_post)
+            if (type_post == "Sale"):
+                new_post = FactoryPosts.created_post(PostType.SALEPOST, self, *content)
+                self._posts.append(new_post)
+
+            self.sender.notify(f"{self._username} has a new post")
+            return self._posts[-1]
 
     def print_info(self):
         print(f"User name: {self._username}")
