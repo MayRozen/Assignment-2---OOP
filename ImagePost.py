@@ -17,3 +17,4 @@ class ImagePost(Posts):
 
     def print_info(self):
         return f"{self._user.username()}"
+        
