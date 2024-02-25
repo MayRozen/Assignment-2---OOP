@@ -7,7 +7,6 @@ class SocialNetwork:
     def __new__(cls, new_name_network):  # singleton
         if cls._active_network is None:  # If an instance does not exist -> create a new one
             cls._active_network = super().__new__(cls)  # super -> from Object class
-            print(cls._active_network)
         return cls._active_network
 
     def __init__(self, new_name_network):
@@ -27,15 +26,22 @@ class SocialNetwork:
         else:
             raise ValueError("This name is already registered in the system")
 
-    def log_in(self, new_username, new_password):
-        if new_username in self.check_userName:
-            user = self.check_userName[new_username]
-            user.isConnected = True
-            print("The user is in")
-
     def log_out(self, new_username):
-        if new_username in self.check_userName:
-            user = self.check_userName[new_username]
-            user.isConnected = False
-            print("The user is out")
+        for user in self.check_userName:
+            if user.username() in new_username:
+                user.isConnected = False
+                print(f"{new_username} disconnected")
 
+    def log_in(self, new_username, new_password):
+        for user in self.check_userName:
+            if user.username() == new_username and user.password() == new_password:
+                user.isConnected = True
+                print(f"{new_username} connected")
+
+
+    def __str__(self):
+        ans = f"{self.new_name_network} social network:\n"
+        for user in self.check_userName:
+            ans = ans + str(user) + "\n"
+
+        return ans
