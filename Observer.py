@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 # Subject interface
 class Sender(ABC):
 
@@ -15,4 +16,3 @@ class Sender(ABC):
     def notify(self, content):
         for member in self._members:
             member.update(content)
-        
