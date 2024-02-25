@@ -42,6 +42,8 @@ class SocialNetwork:
     def __str__(self):
         ans = f"{self.new_name_network} social network:\n"
         for user in self.check_userName:
-            ans = ans + str(user) + "\n"
-
+            if(user != self.check_userName[-1]):
+                ans = ans + str(user) + "\n"
+            else:
+                ans = ans + str(user)
         return ans
