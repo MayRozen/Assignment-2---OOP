@@ -10,6 +10,7 @@ class PostType(Enum):
     IMAGEPOST = 'Image'
     SALEPOST = 'Sale'
 
+
 class FactoryPosts:
 
     @staticmethod
