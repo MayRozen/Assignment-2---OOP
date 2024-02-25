@@ -1,11 +1,12 @@
 from Observer import Sender
 from FactoryPosts import FactoryPosts, PostType
 
+
 class Users:
     def __init__(self, username, password):
         self._username = username
         self._password = password
-        self._followers = []
+        self.followers = []
         self._posts = []
         self.notification = []
         self.isConnected = True
@@ -19,17 +20,17 @@ class Users:
 
     def follow(self, user):
         if self.isConnected:
-            if self not in user._followers:
-                user._followers.append(self)
+            if self not in user.followers:
+                user.followers.append(self)
                 user.sender.register(self)  # Observer
-                print(f"{self._username} started following {user._username}")
+                print(f"{self._username} started following {user.username()}")
 
     def unfollow(self, user):
         if self.isConnected:
-            if self not in user._followers:
-                user._followers.remove(self)
+            if self in user.followers:
+                user.followers.remove(self)
                 user.sender.unregister(self)  # Observer
-                print(f"{self._username} unfollowed {user._username}")
+                print(f"{self._username} unfollowed {user.username()}")
 
     def publish_post(self, type_post, *content):  # using factory
         if self.isConnected:
@@ -44,18 +45,20 @@ class Users:
                 self._posts.append(new_post)
 
             self.sender.notify(f"{self._username} has a new post")
+            print(str(self._posts[-1]))
             return self._posts[-1]
 
-    def print_info(self):
-        print(f"User name: {self._username}")
-        print(f"Number of followers: {len(self._followers)}")
-        print(f"Number of posts: {len(self._posts)}")
+    def __str__(self):
+        a = f"User name: {self._username}, "
+        b = f"Number of posts: {len(self._posts)}, "
+        c = f"Number of followers: {len(self.followers)}"
+
+        return a+b+c
 
     def print_notifications(self):
-        for notif in reversed(self.notification):
+        print(f"{self._username}'s notifications:")
+        for notif in self.notification:
             print(notif)
 
     def update(self, content):
         self.notification.append(content)
-
-
