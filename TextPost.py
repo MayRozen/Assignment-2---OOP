@@ -3,10 +3,12 @@ from Posts import Posts
 
 class TextPost(Posts):
 
-    def __init__(self, text, user):
+    def __init__(self, user, text):
         super().__init__(user)
-        self.text = text
+        self._text = text
 
-    def print_info(self):
-        print(f"{self.text} {self._user.name}")
-        
+    def __str__(self):
+        a = f"{self._owner.username()} published a post:\n"
+        b = f"\"{self._text}\"\n"
+
+        return a+b
